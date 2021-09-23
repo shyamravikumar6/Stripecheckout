@@ -36,7 +36,7 @@ export default async function handler(req, res) {
         //   cancel_url: `${req.headers.origin}/?canceled=true`,
         // });
   
-        res.redirect(303, `localhost:3001/?client_secret=${1234}`);
+        res.redirect(303, `http://localhost:3001/?client_secret=${1234}`);
       } catch (err) {
         res.status(err.statusCode || 500).json(err.message);
       }
