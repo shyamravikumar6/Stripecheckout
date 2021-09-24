@@ -21,6 +21,13 @@ html {
   height: 100%;
 }
 
+.testing{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+
 body {
   height: 100%;
   width: 100%;

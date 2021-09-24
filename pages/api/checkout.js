@@ -7,16 +7,17 @@ export default async function handler(req, res) {
         // const product = await stripe.products.create({
         //   name: 'T-shirt',
         // });
-       
-        // const price = await stripe.prices.create({
-        //   product: product.id,
-        //   unit_amount: req.body.price,
-        //   currency: 'usd',
-        // });
+       console.log(req.body);
+       const {amount} = JSON.parse(req.body);
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount,
+            currency: 'usd',
+            payment_method_types: ['card'],
+          });
      
        console.log(req.body);
-
-        // const session = await stripe.checkout.sessions.create({
+         const {client_secret} = paymentIntent;
+        //  const session = await stripe.checkout.sessions.create({
         //   line_items: [
         //     {
         //       // TODO: replace this with the `price` of the product you want to sell
@@ -35,12 +36,19 @@ export default async function handler(req, res) {
         //   success_url: `${req.headers.origin}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
         //   cancel_url: `${req.headers.origin}/?canceled=true`,
         // });
-  
-        res.redirect(303, `http://localhost:3001/?client_secret=${1234}`);
-      } catch (err) {
+    
+        res.setHeader('Access-Control-Allow-Origin','*');
+         res.setHeader('Access-Control-Allow-Credentials',true);
+
+        res.redirect(303, `https://stripecheckout-mu.vercel.app/?client_secret=${client_secret}`);
+      
+    
+}
+    catch (err) {
         res.status(err.statusCode || 500).json(err.message);
       }
-    } else {
+} 
+     else {
       res.setHeader('Allow', 'POST');
       res.status(405).end('Method Not Allowed');
     }
