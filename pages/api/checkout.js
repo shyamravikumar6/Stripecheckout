@@ -40,7 +40,7 @@ export default async function handler(req, res) {
         res.setHeader('Access-Control-Allow-Origin','*');
          res.setHeader('Access-Control-Allow-Credentials',true);
 
-        res.redirect(303, `https://stripecheckout-mu.vercel.app/?client_secret=${client_secret}`);
+        res.redirect(303, `https://stripe-react-xi.vercel.app/?client_secret=${client_secret}`);
       
     
 }
