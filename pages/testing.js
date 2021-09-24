@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Field from '../components/Field'
+import axios from 'axios'
 
 const handleSubmit=async(amount) => {
     
     console.log(amount);
-  const data = await fetch('/api/checkout',{method: 'POST',body:JSON.stringify({amount}),mode: 'cors' });
+  const data = await axios.post('/api/checkout',{amount});
   console.log(data);
   window.location.href=data.url;
 }
