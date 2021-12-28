@@ -4,7 +4,7 @@ import axios from 'axios'
 const handleSubmit=async(amount) => {
     
     console.log(amount);
-  const data = await axios.post('/api/checkout',{amount});
+  const data = await axios.post('/api/checkout',{amount},{headers: {'Content-Type':'application/json'}});
   console.log(data);
   window.location.href=data.url;
 }
