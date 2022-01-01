@@ -1,7 +1,8 @@
 import React,{Fragment,useEffect,useRef} from 'react';
 import $ from  'jquery';
 import Head from 'next/head';
-
+import useSWR from 'swr'
+import { useRouter } from 'next/router';
 var cards = [{
   nome: "mastercard",
   colore: "#0061A8",
@@ -28,15 +29,36 @@ var cards = [{
   src: "https://upload.wikimedia.org/wikipedia/commons/5/51/Dankort_logo.png"
 }];
 
+const fetcher = async (url) => {
+  const res = await fetch(url)
+  const data = await res.json()
+
+  if (res.status !== 200) {
+    throw new Error(data.message)
+  }
+  return data
+}
+
 const index = () => {
 
   const inputNumber = useRef();
   const inputCcv = useRef();
   const inputExpire = useRef();
   const inputName = useRef();
+  const { query } = useRouter()
+  const { data, error } = useSWR(
+    () => query.id && `/api/payment-details/${query.id}`,
+    fetcher
+  )
+
+
+
+ useEffect(() => {console.log(data)},[data])
+
+
 
   useEffect(() => {
-
+ if(data){
     $(function(){
       const {document }  =  window;
    
@@ -199,9 +221,9 @@ var iframe = new TokenEx.Iframe("card_number", iframeConfig);
 
     });
 
-
+  }
   
-  },[])
+  },[data])
   
   return (
     <Fragment>
@@ -255,3 +277,5 @@ var iframe = new TokenEx.Iframe("card_number", iframeConfig);
 }
 
 export default index;
+
+

@@ -1,5 +1,3 @@
-// https://dashboard.stripe.com/apikeys
-export const NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_51JcMw2Dvlwn29zrnxjXHEMGdkqYljKlQ5ekd4tLyQEZPQXVFegV36ZGygcgkFqxvlm2WQX06S5g8kdWHCd7piWmz00SeYYkyqT
-export const STRIPE_SECRET_KEY=sk_test_51JcMw2Dvlwn29zrnNYJEdKGnQwfVNfNQaAf1CNDrjbXOkqBqfo31UTNB5BDH5lxrUyumuQtk66EnJUB7RDmXZi7t003wZhsYE2
-// # Set this environment variable to support webhooks — https://stripe.com/docs/webhooks/signatures
-// # STRIPE_WEBHOOK_SECRET=whsec_12345pk_test_51BTUDGJAJfZb9HEBwDg86TN1KNprHjkfipXmEDMb0gSCassK5T3ZfxsAbcgKVmAIXF7oZ6ItlZZbXO6idTHE67IM007EwQ4uN3
+const dev = process.env.NODE_ENV !== 'production';
+
+export const server = dev ? 'http://localhost:3003' : 'https://your_deployment.server.com';
